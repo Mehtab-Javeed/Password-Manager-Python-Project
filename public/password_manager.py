@@ -1,4 +1,8 @@
 from cryptography.fernet import Fernet
+import os
+print("Welcome to the password manager!")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FILE_PATH = os.path.join(BASE_DIR, "passwords.txt")
 
 """
 # This is a function to generate a key and save it into a file
@@ -16,15 +20,14 @@ def load_key():
     return key
 
 
-# master_password = input("Enter your password: ")
-# we are adding the master password to the key to make it more secure
+# master_password = input("Enter your password: ") #master password turned off for now, conflict with fernet
 key = load_key()  # + master_password.encode()
 fer = Fernet(key)
 
 
 def view():
     # a means append, w means write r means read, with means it will automatically close the file after we are done
-    with open("passwords.txt", "r") as f:
+    with open(FILE_PATH, "r") as f:
         for line in f.readlines():
             data = line.rstrip()  # rstrip removes the new line character
             # split the data into user and password
@@ -39,7 +42,7 @@ def add():
     password = input("Password: ")
 
     # a means append, w means write r means read, with means it will automatically close the file after we are done
-    with open("passwords.txt", "a") as f:
+    with open(FILE_PATH, "a") as f:
         f.write(name + "|" + fer.encrypt(password.encode()).decode() + "\n")
 
 
