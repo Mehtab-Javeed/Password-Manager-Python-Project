@@ -2,6 +2,7 @@ from cryptography.fernet import Fernet
 import os
 print("Welcome to the password manager!")
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# this is the path to the passwords file, it will be created in the same directory as this script
 FILE_PATH = os.path.join(BASE_DIR, "passwords.txt")
 
 """
